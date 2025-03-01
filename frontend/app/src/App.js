@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./App.css"; // Import custom styles
 
 const App = () => {
   const [text, setText] = useState("");
@@ -7,28 +8,41 @@ const App = () => {
   const [isRecording, setIsRecording] = useState(false);
   const recognition = new window.webkitSpeechRecognition(); // Web Speech API
 
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  recognition.lang = "en-US";
+  // Set options for the speech recognition
+  recognition.continuous = false; // Stops recording after a pause
+  recognition.interimResults = false; // Only final results
+  recognition.lang = "en-US"; // Set language to English
 
-  // Start speech recognition
-  const startRecording = () => {
+  // Event listeners for the speech recognition
+  recognition.onstart = () => {
+    console.log("Speech recognition started");
     setIsRecording(true);
-    recognition.start();
-
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      setText(transcript);
-      setIsRecording(false);
-    };
-
-    recognition.onerror = () => {
-      setIsRecording(false);
-    };
   };
 
-  const stopRecording = () => {
+  recognition.onend = () => {
+    console.log("Speech recognition ended");
     setIsRecording(false);
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Speech recognition error", event.error);
+    setIsRecording(false);
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    setText(transcript);
+    setIsRecording(false);
+  };
+
+  // Start recording
+  const startRecording = () => {
+    setText(""); // Clear previous text
+    recognition.start();
+  };
+
+  // Stop recording
+  const stopRecording = () => {
     recognition.stop();
   };
 
@@ -43,31 +57,46 @@ const App = () => {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h1>Doctor's Speech to EHR</h1>
+    <div className="app-container">
+      <h1 className="title">Doctor's Speech to EHR</h1>
       
       <textarea
         rows="4"
-        style={{ width: "80%", padding: "10px", marginTop: "10px" }}
+        className="input-textarea"
         placeholder="Transcribed text will appear here..."
         value={text}
         onChange={(e) => setText(e.target.value)}
       ></textarea>
 
-      <br />
-      <button onClick={startRecording} disabled={isRecording} style={{ margin: "5px", padding: "10px" }}>
-        🎤 {isRecording ? "Recording..." : "Start Recording"}
-      </button>
-      <button onClick={stopRecording} disabled={!isRecording} style={{ margin: "5px", padding: "10px" }}>
-        ⏹ Stop
-      </button>
-      <button onClick={handleSubmit} disabled={!text} style={{ margin: "5px", padding: "10px" }}>
-        ➡ Convert to EHR
-      </button>
+      <div className="button-container">
+        <button
+          onClick={startRecording}
+          disabled={isRecording}
+          className={`button start-button ${isRecording ? 'recording' : ''}`}
+        >
+          🎤 {isRecording ? "Recording..." : "Start Recording"}
+        </button>
+        
+        <button
+          onClick={stopRecording}
+          disabled={!isRecording}
+          className="button stop-button"
+        >
+          ⏹ Stop
+        </button>
+
+        <button
+          onClick={handleSubmit}
+          disabled={!text}
+          className="button submit-button"
+        >
+          ➡ Convert to EHR
+        </button>
+      </div>
 
       {ehrData && (
-        <div style={{ marginTop: "20px", textAlign: "left", padding: "10px", border: "1px solid #ddd" }}>
-          <h2>Extracted EHR Data:</h2>
+        <div className="ehr-data">
+          <h2 className="ehr-title">Extracted EHR Data:</h2>
           <pre>{JSON.stringify(ehrData, null, 2)}</pre>
         </div>
       )}
