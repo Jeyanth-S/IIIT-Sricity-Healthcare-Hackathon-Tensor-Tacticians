@@ -1,32 +1,93 @@
-/* styles/Navbar.css */
+/* Navbar Styles */
 .navbar {
-    background-color: #007bff;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #007bff;
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between; /* Align logo left, menu right */
+  align-items: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Navbar Logo */
+.navbar .logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+/* Navbar Menu */
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Wrap items for responsiveness */
+}
+
+.navbar li {
+  margin: 0 15px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar a:hover {
+  color: #ffcc00;
+}
+
+/* Mobile Navigation */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
   }
-  
+
+  .menu-toggle {
+      display: block; /* Show menu icon on mobile */
+  }
+
   .navbar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background: rgba(0, 123, 255, 0.9);
+      width: 100%;
+      max-width: 250px;
+      display: none;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   }
-  
+
+  .navbar ul.show {
+      display: flex;
+  }
+
   .navbar li {
-    margin: 0 15px;
+      margin: 10px 0;
   }
-  
-  .navbar a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    transition: color 0.3s ease-in-out;
-  }
-  
-  .navbar a:hover {
-    color: #ffcc00;
-  }
-  
+}

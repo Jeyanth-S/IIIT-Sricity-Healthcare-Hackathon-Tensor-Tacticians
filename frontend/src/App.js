@@ -10,7 +10,7 @@ import Insights from "./pages/Insights";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Logout from "./pages/Logout";
+//import Logout from "./pages/Logout";
 import "./styles/Home.css";
 import "./styles/About.css";
 import "./styles/Hospitality.css";

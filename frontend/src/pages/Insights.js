@@ -356,55 +356,76 @@
 // }
 
 // export default Insights;
-
-
-
-
-
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import "../styles/Insights.css";
+import * as pdfjsLib from "pdfjs-dist/build/pdf"; // PDF.js for extracting text
+import mammoth from "mammoth"; // For extracting .docx file text
 import { pdfjs } from "react-pdf";
-import mammoth from "mammoth";
+
+// Set the PDF worker source dynamically
+pdfjs.GlobalWorkerOptions.workerSrc = 
+  `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+
+// Speech Recognition Setup
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+const mic = new SpeechRecognition();
+mic.continuous = true;
+mic.interimResults = true;
+mic.lang = "en-US";
 
 function Insights() {
-  const [transcription, setTranscription] = useState("");
-  const [isRecording, setIsRecording] = useState(false);
-  const recognitionRef = useRef(null);
+  const [isListening, setIsListening] = useState(false);
+  const [note, setNote] = useState("");
+  const [savedNotes, setSavedNotes] = useState([]);
+  const [fileText, setFileText] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state for file processing
 
   useEffect(() => {
-    if (!("webkitSpeechRecognition" in window)) {
-      alert("Speech recognition is not supported in your browser. Please use Chrome.");
-      return;
+    if (isListening) {
+      try {
+        mic.start();
+      } catch (error) {
+        console.warn("Speech recognition already started.");
+      }
+
+      mic.onresult = (event) => {
+        const transcript = Array.from(event.results)
+          .map((result) => result[0].transcript)
+          .join(" ");
+        setNote(transcript);
+      };
+    } else {
+      mic.stop();
     }
 
-    recognitionRef.current = new window.webkitSpeechRecognition();
-    recognitionRef.current.continuous = false;
-    recognitionRef.current.interimResults = false;
-    recognitionRef.current.lang = "en-US";
-
-    recognitionRef.current.onresult = (event) => {
-      setTranscription(event.results[0][0].transcript);
+    mic.onend = () => {
+      if (isListening) {
+        try {
+          mic.start();
+        } catch (error) {
+          console.warn("Speech recognition already started.");
+        }
+      }
     };
 
-    recognitionRef.current.onend = () => {
-      setIsRecording(false);
+    mic.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
     };
 
-    recognitionRef.current.onerror = (event) => {
-      console.error("Speech recognition error:", event);
-      setIsRecording(false);
+    return () => {
+      mic.stop();
     };
-  }, []);
+  }, [isListening]);
 
-  const startRecording = () => {
-    if (recognitionRef.current) {
-      setIsRecording(true);
-      recognitionRef.current.start();
-    }
+  const toggleListening = () => {
+    setIsListening((prevState) => !prevState);
   };
 
-  const stopRecording = () => {
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
+  const handleSaveNote = () => {
+    if (note.trim()) {
+      setSavedNotes([...savedNotes, note]);
+      setNote("");
     }
   };
 
@@ -412,50 +433,85 @@ function Insights() {
     const file = event.target.files[0];
     if (!file) return;
 
-    if (file.type === "text/plain") {
-      const text = await file.text();
-      setTranscription(text);
-    } else if (file.type === "application/pdf") {
+    setLoading(true); // Show loading state
+    setFileText(""); // Clear previous text
+    const fileType = file.name.split(".").pop().toLowerCase();
+
+    if (fileType === "txt") {
       const reader = new FileReader();
-      reader.onload = async () => {
-        const typedArray = new Uint8Array(reader.result);
-        const pdf = await pdfjs.getDocument(typedArray).promise;
-        let text = "";
-        for (let i = 1; i <= pdf.numPages; i++) {
-          const page = await pdf.getPage(i);
-          const content = await page.getTextContent();
-          text += content.items.map((item) => item.str).join(" ") + " ";
-        }
-        setTranscription(text);
-      };
-      reader.readAsArrayBuffer(file);
-    } else if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-      const reader = new FileReader();
-      reader.onload = async (event) => {
-        const text = await mammoth.extractRawText({ arrayBuffer: event.target.result });
-        setTranscription(text.value);
-      };
-      reader.readAsArrayBuffer(file);
+      reader.onload = (e) => setFileText(e.target.result);
+      reader.readAsText(file);
+    } else if (fileType === "pdf") {
+      extractTextFromPDF(file);
+    } else if (fileType === "docx") {
+      extractTextFromDocx(file);
     } else {
-      alert("Unsupported file format. Please upload a .txt, .pdf, or .docx file.");
+      alert("Unsupported file type! Please upload TXT, PDF, or DOCX.");
+      setLoading(false);
     }
+  };
+
+  const extractTextFromPDF = async (file) => {
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const typedArray = new Uint8Array(e.target.result);
+      const pdf = await pdfjsLib.getDocument({ data: typedArray }).promise;
+      let extractedText = "";
+
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        extractedText += textContent.items.map((item) => item.str).join(" ") + "\n\n";
+      }
+
+      setFileText(extractedText);
+      setLoading(false);
+    };
+    reader.readAsArrayBuffer(file);
+  };
+
+  const extractTextFromDocx = (file) => {
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const result = await mammoth.extractRawText({ arrayBuffer: e.target.result });
+      setFileText(result.value);
+      setLoading(false);
+    };
+    reader.readAsArrayBuffer(file);
   };
 
   return (
     <div className="insights-container">
-      <h2>Speech & Document Processing</h2>
+      <h1>Voice & Document Notes</h1>
 
-      <input type="file" accept=".txt, .pdf, .docx" onChange={handleFileUpload} />
+      <div className="container">
+        {/* Speech-to-Text Section */}
+        <div className="box">
+          <h2>Current Note (Speech)</h2>
+          {isListening ? <span>🎙 Listening...</span> : <span>🛑 Not Listening</span>}
+          <button onClick={toggleListening}>{isListening ? "Stop" : "Start"}</button>
+          <button onClick={handleSaveNote} disabled={!note.trim()}>Save Note</button>
+          <p>{note || "Start speaking to transcribe..."}</p>
+        </div>
 
-      <button onClick={startRecording} disabled={isRecording}>
-        {isRecording ? "Recording..." : "Start Recording"}
-      </button>
-      <button onClick={stopRecording} disabled={!isRecording}>
-        Stop Recording
-      </button>
+        {/* Document Upload Section */}
+        <div className="box">
+          <h2>Upload Document</h2>
+          <input type="file" accept=".txt, .pdf, .docx" onChange={handleFileUpload} />
+          <h3>Extracted Text</h3>
+          {loading ? <p>📄 Extracting text, please wait...</p> : <p>{fileText || "No file uploaded yet."}</p>}
+        </div>
 
-      <h3>Transcription Output:</h3>
-      <p>{transcription || "No transcription yet"}</p>
+        {/* Saved Notes */}
+        <div className="box">
+          <h2>Saved Notes</h2>
+          {savedNotes.length > 0 ? (
+            savedNotes.map((n, index) => <p key={index}>{n}</p>)
+          ) : (
+            <p>No saved notes</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
