@@ -1,0 +1,115 @@
+/* AI-Themed Background */
+.document-upload-container {
+  position: relative;
+  height: 100vh;
+  padding: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, #001f3f, #0072ff);
+  overflow: hidden;
+}
+
+.background-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Upload Box */
+.upload-box {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  width: 500px;
+  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+.upload-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.5);
+}
+
+/* File Input */
+input {
+  margin-top: 30px;
+  padding: 20px;
+  border: 5px solid #00c6ff;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+input::file-selector-button {
+  background: #00c6ff;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+/* Extracted Text Box */
+.extracted-text-box {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.3);
+  transition: 0.3s ease-in-out;
+}
+
+.extracted-text-box:hover {
+  box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.4);
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 16px;
+}
+
+/* Button */
+.ehr-btn {
+  margin-top: 10px;
+  padding: 12px;
+  width: 100%;
+  background: #ff9800;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.ehr-btn:hover {
+  transform: scale(1.05);
+  background: #ff6f00;
+}
+
+.loading-text {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  animation: fade-in 0.8s infinite alternate;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
