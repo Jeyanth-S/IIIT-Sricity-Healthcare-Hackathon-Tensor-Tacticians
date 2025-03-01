@@ -1,0 +1,100 @@
+/* General Page Styling */
+body {
+    font-family: "Arial", sans-serif;
+    background: linear-gradient(to right, #2c3e50, #4ca1af);
+    color: white;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Container Styling */
+  .container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  /* Header Styling */
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #f1c40f;
+  }
+  
+  /* Description */
+  p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  /* Buttons */
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .record-button,
+  .stop-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .record-button {
+    background-color: #27ae60;
+    color: white;
+  }
+  
+  .record-button:hover {
+    background-color: #2ecc71;
+  }
+  
+  .stop-button {
+    background-color: #c0392b;
+    color: white;
+  }
+  
+  .stop-button:hover {
+    background-color: #e74c3c;
+  }
+  
+  .record-button:disabled,
+  .stop-button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+  
+  /* Text Output Box */
+  .text-box {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+  }
+  
+  .text-box h2 {
+    font-size: 18px;
+    color: #f39c12;
+    margin-bottom: 10px;
+  }
+  
+  .text-box p {
+    min-height: 50px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
