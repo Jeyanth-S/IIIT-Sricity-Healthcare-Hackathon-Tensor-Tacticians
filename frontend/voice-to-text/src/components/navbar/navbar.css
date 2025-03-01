@@ -1,0 +1,44 @@
+.navbar-container {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly;
+}
+
+.logo>img {
+    width: 115px;
+    cursor: pointer;
+}
+
+.nav-items {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-items>h3 {
+    font-weight: 400;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.nav-items>h3:hover {
+    color: #174EB2;
+}
+
+.side-nav-items {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.side-nav-items>h3 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #174EB2;
+    cursor: pointer;
+}
+
+.side-nav-items>img {
+    width: 30px;
+    cursor: pointer;
+}

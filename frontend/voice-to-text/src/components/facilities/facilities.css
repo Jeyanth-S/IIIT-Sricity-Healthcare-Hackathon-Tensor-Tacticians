@@ -1,0 +1,59 @@
+.facilities-container {
+    margin-top: 100px;
+    padding: 0 66px;
+}
+
+.facilities-container>h3 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: normal;
+    margin-bottom: 140px;
+}
+
+.facilities-wrapper {
+    display: flex;
+    gap: 68px;
+}
+
+.facility-details {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+}
+
+.facility-detail-head>h6 {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.facility-detail-body>p {
+    width: 42vw;
+    text-align: start;
+    color: #5C5C5C;
+}
+
+.facility-detail-button>button {
+    padding: 20px 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #174EB2;
+    color: #FFF;
+}
+
+.facility-images {
+    position: relative;
+}
+
+.facility1, .facility2 {
+    width: 365px;
+    height: 349px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.facility2 {
+    position: absolute;
+    right: -160px;
+    bottom: 120px;
+    z-index: -1;
+}

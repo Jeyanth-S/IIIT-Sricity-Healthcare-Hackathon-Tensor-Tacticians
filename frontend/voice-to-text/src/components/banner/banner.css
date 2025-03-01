@@ -1,0 +1,73 @@
+.banner-container {
+    display: flex;
+    padding: 50px;
+    background-color: rgba(62, 161, 255, 0.04);
+}
+
+.banner-content {
+    padding: 0 77px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.banner-heading>h2 {
+    font-size: 52px;
+}
+
+.banner-subheading>p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #5C5C5C;
+}
+
+.banner-buttons {
+    display: flex;
+    margin: 20px 0 0 10px;
+    gap: 28px;
+}
+
+.banner-buttons>button {
+    padding: 20px 40px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.banner-appointment-button {
+    color: #174EB2;
+    background-color: #FFF;
+    border: 1px solid #174EB2;
+}
+
+.banner-learn-button {
+    color: #174EB2;
+    background-color: #FFF;
+    border: 1px solid #174EB2;
+}
+
+.banner-learn-button:hover {
+    color: #FFF;
+    background-color: #174EB2;
+}
+
+.banner-appointment-button:hover{
+    color: #FFF;
+    background-color: #174EB2;
+}
+
+.banner-graphic {
+    width: 100%;
+    position: relative;
+}
+
+
+.banner-graphic>img:first-child {
+    width: 500px;
+}
+
+.banner-graphic>img:last-child {
+    width: 800px;
+    position: absolute;
+    left: -180px;
+}
