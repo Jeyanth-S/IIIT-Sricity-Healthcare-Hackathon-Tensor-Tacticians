@@ -1,0 +1,37 @@
+[
+    {
+        "age": "60-year-old",
+        "condition": "",
+        "medication": "",
+        "patient_name": "Sarah Connor",
+        "procedure": ""
+    },
+    {
+        "age": "daily",
+        "condition": "asthma",
+        "medication": "",
+        "patient_name": "James Smith",
+        "procedure": ""
+    },
+    {
+        "age": "45",
+        "condition": "hypertension",
+        "medication": "Lisinopril",
+        "patient_name": "John Doe",
+        "procedure": ""
+    },
+    {
+        "age": "25",
+        "condition": "fracture",
+        "medication": "",
+        "patient_name": "Daniel Brown",
+        "procedure": ""
+    },
+    {
+        "age": "29",
+        "condition": "migraines",
+        "medication": "Topiramate",
+        "patient_name": "Emma Thompson",
+        "procedure": ""
+    }
+]

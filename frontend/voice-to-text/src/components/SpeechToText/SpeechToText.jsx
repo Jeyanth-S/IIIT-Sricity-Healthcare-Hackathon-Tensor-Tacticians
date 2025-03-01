@@ -56,9 +56,37 @@ const SpeechToText = () => {
     }
   };
 
-  const handleConvertToEHR = () => {
-    alert("EHR conversion feature coming soon!");
-  };
+  const handleConvertToEHR = async () => {
+    if (!note) return;
+
+    try {
+        const response = await fetch("http://localhost:5001/process_text", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ text: note }),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch EHR data");
+        }
+
+        const ehrData = await response.json();
+        console.log("EHR Data:", ehrData);
+
+        alert("EHR data saved successfully!");
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to convert text to EHR");
+    }
+};
+
+  
+  
+
+
+  
 
   return (
     <div className="speech-container">
