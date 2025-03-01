@@ -1,0 +1,83 @@
+.insights-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+body {
+  background: url("https://th.bing.com/th/id/OIP.KohJb_rW39c2oxjiO3Zx7wHaE3?rs=1&pid=ImgDetMain") no-repeat center center/cover;
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
+h2 {
+  font-size: 24px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+input[type="file"] {
+  display: block;
+  margin: 15px auto;
+  padding: 10px;
+  border: 2px dashed #007bff;
+  border-radius: 8px;
+  background: #f8f9fa;
+  cursor: pointer;
+}
+
+button {
+  display: inline-block;
+  padding: 12px 18px;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #0056b3, #003d80);
+  transform: scale(1.05);
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+h3 {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #17a2b8;
+}
+
+p {
+  background: #e9ecef;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .insights-container {
+    width: 90%;
+    padding: 15px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  button {
+    width: 100%;
+  }
+}
