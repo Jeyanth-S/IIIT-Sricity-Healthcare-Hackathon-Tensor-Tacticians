@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./home.css";
-import videoBg from "./medii.mp4";
+import videoBg from "../assets/medii.mp4";
 
 const Home = () => {
   const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import SpeechToText from "./SpeechToText";
-import DocumentUpload from "./DocumentUpload";
-import Header from "./Header";
+import Home from "./components/Home";
+import SpeechToText from "./components/SpeechToText";
+import DocumentUpload from "./components/DocumentUpload";
+import Header from "./components/Header";
 
 const App = () => {
   return (
