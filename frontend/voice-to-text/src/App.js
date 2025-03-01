@@ -621,6 +621,8 @@ import Partners from './components/partners/Partners';
 import Services from './components/services/Services';
 import Testimonials from './components/testimonials/Testimonials';
 import SpeechToText from './components/SpeechToText/SpeechToText';
+import DocumentUpload from './components/backup/components/DocumentUpload';
+
 
 function App() {
   return (
@@ -638,6 +640,7 @@ function App() {
               <Facilities />
               <Testimonials />
               <Footer />
+              <DocumentUpload />
               <Link to='/SpeechToText'>
                 <button className='fixed p-8 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600' style={{ width: '80px', height: '80px', fontSize: '32px', position: 'fixed', right: '30px', bottom: '30px', zIndex: 1000, backgroundColor: '#007bff', borderRadius: '50%' }}>
                   🎙️
