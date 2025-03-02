@@ -27,7 +27,7 @@ repo
 4. Launch the frontend application.
 
 ## Future Enhancements
-- Advanced contextual understanding
-- Multi-language support
-- Integration with EHR systems
+- Advanced contextual understanding.
+- Multi-language support.
+- Integration with EHR systems.
 
